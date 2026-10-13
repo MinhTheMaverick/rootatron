@@ -15,11 +15,16 @@
 .coming-soon { display:inline-block; flex:none; padding:4px 9px; border-radius:4px; background:#e5ecf3; color:#52667a; font-size:12px; font-weight:600; line-height:1.4; }
 .tutorial-button:disabled { display:flex; align-items:center; justify-content:center; width:100%; min-height:50px; background:#fff; border-color:#c9d3df; color:#5c6d7e; cursor:default; }
 .tutorial-button > span { margin-left:12px; }
-.home-footer { align-items:center; padding-top:8px; padding-bottom:8px; }
-.support-links { display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:0 16px; }
-.support-links a, .support-links button { display:inline-flex; align-items:center; min-height:44px; padding:6px 4px; border:0; background:transparent; color:#476480; font-size:13px; text-decoration:underline; text-decoration-color:#b5c6d7; text-underline-offset:4px; }
-.support-links a:hover, .support-links button:hover { color:#244e79; text-decoration-color:currentColor; }
-@media(max-width:900px) { .home-footer { flex-direction:column; gap:4px; } }
+.home-header { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:4px 24px; min-height:63px; padding:8px 32px; }
+.support-links { display:flex; justify-content:flex-end; align-items:center; flex-wrap:wrap; gap:0 16px; margin-left:auto; }
+.support-links a, .support-links button { display:inline-flex; align-items:center; min-height:44px; padding:6px 4px; border:0; background:transparent; color:#fff; font-size:14px; text-decoration:none; }
+.support-links a:hover, .support-links button:hover { text-decoration:underline; text-underline-offset:4px; }
+.support-links a:focus-visible, .support-links button:focus-visible { outline-color:#fff; }
+@media(max-width:600px) {
+  .home-header { padding:8px 24px; }
+  .support-links { gap:0 10px; }
+  .support-links a, .support-links button { font-size:12px; }
+}
 .chooser-tutorial { display:flex; align-items:center; flex-wrap:wrap; gap:8px 12px; margin-top:24px; padding-top:20px; border-top:1px solid #e1e7ee; color:#506579; font-size:14px; }
 .tutorial-shortcut:disabled { border:0; padding:4px 0; background:transparent; color:#586f86; cursor:default; font-size:14px; }
 .chooser-tutorial + .chooser-note { margin-top:14px; }
