@@ -1,24 +1,41 @@
 :root{font-family:Arial,Helvetica,sans-serif;color:#343434;background:#fff;--blue:#346295;--line:#e9dcbe;--muted:#6f7a85}*{box-sizing:border-box}body{margin:0;min-height:100svh;display:flex;flex-direction:column}a{color:#346295}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #205f96;outline-offset:4px}.skip-link{position:fixed;top:-70px;left:16px;background:white;padding:12px;z-index:100}.skip-link:focus{top:12px}.site-header{padding:20px 32px;border-bottom:1px solid var(--line);background:var(--blue);color:white}.site-name{font-size:18px}.hero{flex:1;min-height:400px;display:grid;place-items:center;padding:60px 24px}.hero-content{text-align:center}h1{font-size:32px;font-weight:500;line-height:1.2;margin:0 0 32px}.hero-actions{display:flex;justify-content:center;gap:16px}.button{display:inline-block;padding:13px 24px;min-height:46px;border:1px solid var(--blue);border-radius:4px;font-weight:400;font-size:16px;text-decoration:none}.button.primary{background:var(--blue);color:white}.button.primary:hover{background:#27496f}.button.secondary{background:white;color:#27496f}.button.secondary:hover{background:#eaf0f7}.site-footer{display:flex;justify-content:space-between;gap:16px;padding:20px 32px;font-size:12px;color:#6f7a85;background:#e5ebf2;border-top:1px solid var(--line)}.divider{padding:0 10px}dialog{width:min(780px,calc(100% - 40px));max-height:calc(100svh - 40px);border:1px solid #e9dcbe;border-radius:4px;background:white;color:#343434;padding:36px;overflow:auto}dialog::backdrop{background:#172b4270}.dialog-close{position:absolute;right:10px;top:8px;background:white;border:0;color:#506070;font-size:26px;width:44px;height:44px}.dialog-close:hover{background:#eef3f7}h2{font-size:26px;line-height:1.2;font-weight:500;margin:0 36px 18px 0}.dialog-description{font-size:15px;line-height:1.7;color:var(--muted);margin:0 0 26px}.workspace-options{display:grid;grid-template-columns:1fr 1fr;gap:24px}.workspace-card{border:1px solid var(--line);padding:22px;text-decoration:none;display:flex;flex-direction:column}.workspace-card:hover{border-color:var(--blue);background:#eaf0f7}h3{font-size:21px;font-weight:500;margin:0;color:#346295}.workspace-card p{font-size:14px;line-height:1.75;color:#394b5c;margin:14px 0 22px}.card-link{font-size:14px;color:#346295;margin-top:auto;text-decoration:underline;text-underline-offset:3px}.chooser-note{font-size:13px;color:var(--muted);margin:24px 0 0;line-height:1.7}#root-dialog{max-width:650px}#root-dialog p{font-size:15px;line-height:1.75;color:#394b5c}.root-explainer{border-block:1px solid var(--line);padding:12px 0;margin:24px 0}#root-dialog .button{margin-top:12px}#root-dialog .external-note{font-size:12px}@media(max-width:600px){.site-header{padding:18px 24px}.hero{min-height:420px}.hero-actions{flex-direction:column;max-width:260px;margin:auto}h1{font-size:28px}.site-footer{flex-direction:column;padding:20px 24px;font-size:11px;gap:10px}dialog{padding:36px 22px 24px;width:calc(100% - 24px)}.workspace-options{grid-template-columns:1fr;gap:16px}h2{font-size:24px}.workspace-card{padding:18px}.workspace-card p{margin-bottom:16px}}
 
 
-/* Home menu: two main tools, a tutorial, and supporting links. */
-.hero { min-height: 0; padding: 32px 24px; align-content:center; }
+/* Home: a short guide framed by examples from the plotting tool. */
+.hero { min-height:0; padding:64px 48px 24px; grid-template-rows:1fr auto; gap:56px; }
 .home-stage {
-  display:grid; grid-template-columns:minmax(0, 1fr) clamp(360px, 30vw, 520px) minmax(0, 1fr);
-  grid-template-rows:minmax(0, 2.4fr) minmax(0, 1fr); align-items:center; gap:24px 32px;
-  width:min(2160px, 100%); height:clamp(520px, calc(100svh - 180px), 900px);
+  display:grid; grid-template-columns:minmax(0, 1fr) minmax(480px, 40.6%) minmax(0, 1fr);
+  grid-template-rows:370px 150px; align-items:center; gap:32px 40px;
+  width:min(1800px, 100%);
 }
-.hero-content { width:100%; grid-column:2; grid-row:1 / 3; }
+.hero-content { width:100%; grid-column:2; grid-row:1 / 3; align-self:start; padding-top:22px; }
+.hero-content h1 { margin:16px 0 34px; color:#000; font-size:44px; font-weight:400; white-space:nowrap; }
+.hero-subheading { margin:0; color:var(--blue); font-size:16px; line-height:1.4; font-weight:600; }
 .home-plot { display:block; width:100%; height:100%; min-width:0; min-height:0; object-fit:contain; }
 .plot-interference { grid-column:1; grid-row:1; }
 .plot-gaussian { grid-column:1; grid-row:2; }
 .plot-beam { grid-column:3; grid-row:1; overflow:hidden; }
 /* The beam export has wider white margins than the other plots. */
 .plot-beam img { display:block; width:100%; height:100%; object-fit:contain; transform:scale(1.2); }
-.plot-decay { grid-column:3; grid-row:2; }
+.plot-decay { grid-column:3; grid-row:2; align-self:start; }
+.hero-actions { flex-direction:column; gap:14px; max-width:none; width:100%; margin:0; }
+.primary-tools { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+.primary-tools .button { display:flex; align-items:center; justify-content:center; width:100%; min-height:58px; font-weight:600; }
+.tutorial-placeholder { position:relative; }
+.tutorial-button:disabled { display:block; width:100%; min-height:50px; background:#f5f5f8; border-color:#d4dce5; color:#98a2b0; font-weight:600; cursor:default; }
+.tutorial-note { position:absolute; right:-28px; bottom:10px; transform:rotate(-10deg); color:#df0000; font-family:"Comic Sans MS", "Comic Sans", cursive; font-size:18px; font-weight:600; white-space:nowrap; pointer-events:none; }
+.how-it-works { margin-top:36px; padding-top:12px; border-top:1px solid #999; text-align:left; color:#000; font-size:14px; line-height:1.3; }
+.how-it-works h2 { margin:0 0 6px; font-size:14px; line-height:1.3; font-weight:700; }
+.how-it-works ol { margin:0; padding-left:26px; }
+.starting-values-tip { margin:0; }
+.starting-values-tip > strong { color:#df0000; }
+.home-help { margin:0; color:#435672; font-size:14px; line-height:1.6; text-align:center; }
+.home-help a, .home-help button { color:#204775; text-decoration:underline; }
+.home-help button { padding:0; border:0; background:transparent; }
 @media (max-width:1100px) {
-  .home-stage { grid-template-columns:repeat(2, minmax(0, 1fr)); grid-template-rows:auto 330px 170px; height:auto; gap:24px; }
-  .hero-content { grid-column:1 / -1; grid-row:1; max-width:680px; margin-bottom:12px; }
+  .hero { padding:40px 28px 24px; gap:32px; }
+  .home-stage { grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:auto 330px 170px; gap:24px; }
+  .hero-content { grid-column:1 / -1; grid-row:1; max-width:640px; justify-self:center; padding-top:0; margin-bottom:12px; }
   .plot-interference { grid-column:1; grid-row:2; }
   .plot-beam { grid-column:2; grid-row:2; }
   .plot-beam img { transform:none; }
@@ -26,13 +43,6 @@
   .plot-decay { grid-column:2; grid-row:3; }
 }
 
-.hero-content h1 { margin-bottom: 24px; }
-.hero-actions { flex-direction: column; gap: 12px; max-width: none; width: 100%; margin: 0; }
-.primary-tools { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
-.primary-tools .button { display:flex; align-items:center; justify-content:center; width:100%; min-height:50px; }
-.coming-soon { display:inline-block; flex:none; padding:4px 9px; border-radius:4px; background:#e5ecf3; color:#52667a; font-size:12px; font-weight:600; line-height:1.4; }
-.tutorial-button:disabled { display:flex; align-items:center; justify-content:center; width:100%; min-height:50px; background:#fff; border-color:#c9d3df; color:#5c6d7e; cursor:default; }
-.tutorial-button > span { margin-left:12px; }
 .home-header { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:4px 24px; min-height:63px; padding:8px 32px; }
 .support-links { display:flex; justify-content:flex-end; align-items:center; flex-wrap:wrap; gap:0 16px; margin-left:auto; }
 .support-links a, .support-links button { display:inline-flex; align-items:center; min-height:44px; padding:6px 4px; border:0; background:transparent; color:#fff; font-size:14px; text-decoration:none; }
@@ -52,6 +62,9 @@
   .hero { padding: 28px 20px; }
   .home-stage { grid-template-rows:auto 240px 110px; gap:20px 12px; }
   .primary-tools { grid-template-columns:1fr; gap:12px; }
+  .hero-content h1 { font-size:clamp(24px, 7vw, 36px); margin:14px 0 26px; }
+  .hero-subheading { font-size:14px; }
+  .tutorial-note { right:4px; bottom:-12px; font-size:16px; }
   .workspace-options { grid-template-columns: 1fr; }
 }
 
@@ -61,7 +74,3 @@
 .contact-page address a { overflow-wrap: anywhere; }
 .contact-page .button { margin-top: 8px; }
 @media(max-width:600px) { .contact-page { padding: 36px 0; } }
-
-.hero-content h1 { margin-bottom: 10px; font-weight: 600; }
-.hero-subheading { margin: 0 0 28px; font-size: 20px; line-height: 1.45; color: #506070; }
-@media(max-width:600px) { .hero-subheading { font-size: 17px; } }

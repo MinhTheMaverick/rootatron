@@ -2,7 +2,9 @@
 const chooser = document.getElementById('workspace-dialog');
 const about = document.getElementById('root-dialog');
 document.getElementById('make-plot').addEventListener('click', () => chooser.showModal());
-document.getElementById('what-root').addEventListener('click', () => about.showModal());
+for (const trigger of document.querySelectorAll('#what-root, [data-root-intro]')) {
+  trigger.addEventListener('click', () => about.showModal());
+}
 for (const dialog of [chooser, about]) {
   dialog.querySelector('[data-close]').addEventListener('click', () => dialog.close());
   dialog.addEventListener('click', event => {
