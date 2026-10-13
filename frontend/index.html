@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Turn measurements into plots and fitted curves with CERN ROOT. Choose Compact or Standard."><title>ROOT-A-TRON 3000 · Scientific plotting</title><link rel="stylesheet" href="home.css?v=20261013-home-guide"><script src="home.js?v=20261013-home-guide" defer></script><link rel="stylesheet" href="site-brand.css?v=1">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Turn measurements into plots and fitted curves with CERN ROOT. Choose Compact or Standard."><title>ROOT-A-TRON 3000 · Scientific plotting</title><link rel="stylesheet" href="home.css?v=20261013-beam-title"><script src="home.js?v=20261013-beam-title" defer></script><link rel="stylesheet" href="site-brand.css?v=1">
 <link rel="icon" href="favicon.ico?v=1" sizes="any"><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=1"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=1"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=1"><link rel="icon" type="image/png" sizes="512x512" href="icon-512.png?v=1"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
 </head>
 <body>
@@ -44,7 +44,15 @@
 </section>
 <img class="home-plot plot-interference" src="assets/plots/two-slit-interference.png" width="1046" height="1424" alt="Single-photon two-slit interference fit with pulls">
 <img class="home-plot plot-gaussian" src="assets/plots/gaussian-peak.png" width="1968" height="796" alt="Gaussian peak preset fitted in the plotting tool">
-<div class="home-plot plot-beam"><img src="assets/plots/beam-profile.png" width="1542" height="1068" alt="Beam-profile preset fitted in the plotting tool"></div>
+<div class="home-plot plot-beam">
+  <svg viewBox="0 0 1542 1068" role="img" aria-labelledby="beam-plot-title">
+    <title id="beam-plot-title">Transverse Beam Profile — Gaussian surface fitted to measured counts</title>
+    <image href="assets/plots/beam-profile.png" width="1542" height="1068" />
+    <!-- Replace only the export's generic heading; preserve the fitted plot. -->
+    <rect width="1542" height="80" fill="white" />
+    <text x="771" y="60" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="48" fill="black">Transverse Beam Profile</text>
+  </svg>
+</div>
 <img class="home-plot plot-decay" src="assets/plots/exponential-decay.png" width="1968" height="796" alt="Exponential decay preset fitted in the plotting tool">
 </div>
 <p class="home-help">New here? <a href="documentation.html">Read the documentation</a> · <button type="button" data-root-intro>What is ROOT?</button></p>

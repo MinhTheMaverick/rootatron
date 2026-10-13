@@ -16,7 +16,7 @@
 .plot-gaussian { grid-column:1; grid-row:2; }
 .plot-beam { grid-column:3; grid-row:1; overflow:hidden; }
 /* The beam export has wider white margins than the other plots. */
-.plot-beam img { display:block; width:100%; height:100%; object-fit:contain; transform:scale(1.2); }
+.plot-beam svg { display:block; width:100%; height:100%; object-fit:contain; transform:scale(1.2); }
 .plot-decay { grid-column:3; grid-row:2; align-self:start; }
 .hero-actions { flex-direction:column; gap:14px; max-width:none; width:100%; margin:0; }
 .primary-tools { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
@@ -38,7 +38,7 @@
   .hero-content { grid-column:1 / -1; grid-row:1; max-width:640px; justify-self:center; padding-top:0; margin-bottom:12px; }
   .plot-interference { grid-column:1; grid-row:2; }
   .plot-beam { grid-column:2; grid-row:2; }
-  .plot-beam img { transform:none; }
+  .plot-beam svg { transform:none; }
   .plot-gaussian { grid-column:1; grid-row:3; }
   .plot-decay { grid-column:2; grid-row:3; }
 }
