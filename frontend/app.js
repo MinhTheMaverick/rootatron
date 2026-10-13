@@ -779,6 +779,7 @@ function showDatasetResult() {
   if (!saved && !lastResult && !fitBusy) return;
   fitRequestVersion++;
   fitBusy = false;
+  window.FitProgress?.finish();
   lastResult = saved?.response || null;
   lastPayload = saved ? {...saved.payload, dataset_name:datasets[activeIdx].name} : null;
   showMessage('');
@@ -1094,6 +1095,7 @@ function resetResult() {
   fitRequestVersion++;
   plotDrawVersion++;
   fitBusy = false;
+  window.FitProgress?.finish();
   clearReport();
   $('plot').innerHTML = '<p class="placeholder">The plot appears here after a fit.</p>';
   setPngEnabled(false);
@@ -1349,13 +1351,16 @@ async function runFit(fitModel = true) {
   btn.disabled = true;
   $('btn-histogram').disabled = true;
   setStatus($('fit-status'), fitModel ? 'Fitting' : 'Plotting histogram', 'busy');
+  let progress;
   try {
+    progress = window.FitProgress?.start(fitModel ? 'Fitting' : 'Plotting histogram');
     const result = await callBackend(payload.analysis_type === 'histogram' ? '/histogram' : '/fit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
-    });
+    }, 90000);
     if (requestVersion !== fitRequestVersion) return;
+    progress?.received();
     datasets[activeIdx].result = {response:result, payload, sourceSignature:window.WorkspaceStore?.signature(datasets[activeIdx])};
     lastResult = result;
     lastPayload = payload;
@@ -1379,6 +1384,7 @@ async function runFit(fitModel = true) {
     showMessage('error', e.message + (lastResult ? ' The plot and report below are from the previous fit.' : ''));
     setStatus($('fit-status'), 'Fit not completed', 'err');
   } finally {
+    progress?.finish();
     if (requestVersion === fitRequestVersion) {
       fitBusy = false;
       syncAnalysisControls();
@@ -1403,13 +1409,16 @@ async function runMultivariate() {
   $('btn-fit').disabled = true;
   $('btn-histogram').disabled = true;
   setStatus($('fit-status'), 'Fitting', 'busy');
+  let progress;
   try {
+    progress = window.FitProgress?.start('Fitting');
     const result = await callBackend('/multivariate-fit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
-    });
+    }, 90000);
     if (requestVersion !== fitRequestVersion) return;
+    progress?.received();
     datasets[activeIdx].result = { response: result, payload, sourceSignature: window.WorkspaceStore?.signature(datasets[activeIdx]) };
     lastResult = result;
     lastPayload = payload;
@@ -1431,6 +1440,7 @@ async function runMultivariate() {
     showMessage('error', e.message + (lastResult ? ' The plot and report below are from the previous fit.' : ''));
     setStatus($('fit-status'), 'Fit not completed', 'err');
   } finally {
+    progress?.finish();
     if (requestVersion === fitRequestVersion) {
       fitBusy = false;
       syncAnalysisControls();
@@ -2191,6 +2201,7 @@ function applyDocument(doc) {
   }
   fitRequestVersion++;
   fitBusy = false;
+  window.FitProgress?.finish();
   writeForm(doc.inputs);
   $('doc-title').value = doc.title || '';
   $('doc-notes').value = doc.notes || '';

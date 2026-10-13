@@ -1,0 +1,12 @@
+Archived home-page notice — removed from the splash page on 2026-10-13.
+Keep this text available for future use. Server wake-up guidance now appears
+in the fit loading screen after 20 seconds without a response.
+
+Notice!
+
+This is still a prototype, so please sanity-check important results by hand
+before relying on them: confirm the fitted curve follows the data and the
+parameters are physically reasonable.
+
+It runs on free hosting that sleeps when idle, so the first fit after a while
+can take ~30-60 seconds to wake up.
