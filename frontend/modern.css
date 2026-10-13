@@ -99,6 +99,18 @@ input:focus-visible, select:focus-visible, textarea:focus-visible {
 .masthead nav a:hover::after, .masthead nav a[aria-current]::after { transform: scaleX(1); }
 .masthead nav a[aria-current] { color: #fff; font-weight: 600; }
 
+/* Tutorial entry point stays visible while the walkthrough is being prepared. */
+body.modern .masthead .workspace-tutorial:disabled {
+  display: inline-flex; align-items: center; gap: 6px; align-self: center;
+  min-height: 36px; padding: 0 10px; white-space: nowrap;
+  color: #e6eef7; background: transparent; border-color: transparent;
+  box-shadow: none; font-size: 14px; font-weight: 400;
+}
+.masthead .tutorial-status {
+  padding: 2px 5px; border: 1px solid #9eb7d1; border-radius: 3px;
+  color: #e6eef7; font-size: 10px; line-height: 1.2;
+}
+
 /* ============================================================ worksheet bar */
 
 .worksheet-bar {
@@ -522,6 +534,27 @@ body.modern .import-panel { background: #f7f9fb; border: 1px solid var(--line); 
   .worksheet-bar { padding: 10px 14px; }
   .card { padding: 16px 14px 18px; }
   .workspace { width: calc(100% - 24px); }
+}
+
+@media (max-width: 600px) {
+  body.standard-workspace { --masthead-h: 86px; }
+  .masthead.workspace-masthead {
+    display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 42px 44px;
+    height: var(--masthead-h); flex-shrink: 0; gap: 0;
+  }
+  .workspace-masthead .brand { min-width: 0; }
+  .workspace-masthead nav {
+    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+    width: 100%; height: 44px; margin-left: 0; gap: 0;
+  }
+  .workspace-masthead nav a {
+    justify-content: center; padding: 0 4px; white-space: normal;
+    text-align: center; font-size: 12.5px; line-height: 1.25;
+  }
+  body.modern .workspace-masthead .workspace-tutorial:disabled {
+    flex-direction: column; justify-content: center; gap: 2px;
+    min-width: 0; min-height: 40px; padding: 0 4px; font-size: 12.5px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
