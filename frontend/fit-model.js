@@ -108,6 +108,7 @@
   const adjustments=new Map();
   let controlKey='';
   const panel=$('guess-preview-panel'), controls=$('visual-parameters'), openButton=$('visual-match-open');
+  const manualButton=$('starting-values-manual'), valuesEditor=$('starting-values-editor');
   const searches=new Map();
   const currentDataset=()=>typeof datasets==='undefined'?null:datasets[activeIdx];
   const datasetKey=()=>currentDataset()?.id || String(typeof activeIdx==='undefined'?0:activeIdx);
@@ -136,6 +137,7 @@
     estimate.textContent=provenance?.source==='automatic'?'Re-estimate':'Estimate starting values';
     estimate.classList.toggle('primary',provenance?.source!=='automatic');
     estimate.disabled=busy || !count || !['xy','histogram'].includes($('analysis-type').value) || (typeof fitBusy!=='undefined' && fitBusy);
+    manualButton.disabled=!count;
     $('starting-values-stop').hidden=!busy; $('starting-values-stop').disabled=!!state?.cancelling;
     openButton.classList.toggle('primary',!!state?.failed);
     const warnings=provenance?.values===valuesKey($('initial-guesses').value) && Array.isArray(provenance.warnings)?provenance.warnings:[];
@@ -221,6 +223,16 @@
     openButton.setAttribute('aria-expanded',String(!pane.hidden));
     openButton.textContent=pane.hidden?'Adjust on the plot':'Hide adjustment controls';
     panel.classList.toggle('is-adjusting',!pane.hidden); syncControls(); renderPreview();
+  });
+  manualButton.addEventListener('click',()=> {
+    valuesEditor.open=true;
+    manualButton.setAttribute('aria-expanded','true');
+    const input=table.querySelector('[data-pguess]');
+    input?.focus({preventScroll:true});
+    (input || valuesEditor).scrollIntoView({block:'center'});
+  });
+  valuesEditor.addEventListener('toggle',()=> {
+    manualButton.setAttribute('aria-expanded',String(valuesEditor.open));
   });
   controls?.addEventListener('click',event=> {
     const button=event.target.closest('[data-adjust]'); if(!button) return;
