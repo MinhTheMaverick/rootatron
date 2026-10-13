@@ -1,12 +1,13 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Turn measurements into plots and fitted curves with CERN ROOT. Choose Compact or Standard."><title>ROOT-A-TRON 3000 · Scientific plotting</title><link rel="stylesheet" href="home.css?v=20261013-compact-actions"><script src="home.js" defer></script><link rel="stylesheet" href="site-brand.css?v=1">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Turn measurements into plots and fitted curves with CERN ROOT. Choose Compact or Standard."><title>ROOT-A-TRON 3000 · Scientific plotting</title><link rel="stylesheet" href="home.css?v=20261013-simple-tutorial"><script src="home.js" defer></script><link rel="stylesheet" href="site-brand.css?v=1">
 <link rel="icon" href="favicon.ico?v=1" sizes="any"><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=1"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=1"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=1"><link rel="icon" type="image/png" sizes="512x512" href="icon-512.png?v=1"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header"><span class="site-name">ROOT-A-TRON 3000</span></header>
 <main id="main" class="hero" tabindex="-1">
+<aside class="prototype-note" role="note"><strong>Notice!</strong><p>This is still a prototype, so please sanity-check important results by hand before relying on them: confirm the fitted curve follows the data and the parameters are physically reasonable.</p><p>It runs on free hosting that sleeps when idle, so the first fit after a while can take ~30-60 seconds to wake up.</p></aside>
 <section class="hero-content" aria-labelledby="hero-title">
   <img class="root-image" src="assets/root-framework.png" width="600" height="350" alt="ROOT - Data Analysis Framework">
   <h1 id="hero-title">ROOT-A-TRON 3000</h1>
@@ -16,13 +17,7 @@
       <button class="button primary" id="make-plot" type="button">Make a Plot</button>
       <a class="button primary" href="uncertainties.html">Analyze Data</a>
     </div>
-    <section class="tutorial-card" id="tutorial" aria-labelledby="tutorial-title">
-      <div class="tutorial-copy">
-        <div class="tutorial-heading"><h2 id="tutorial-title">Tutorial</h2><span class="coming-soon">Coming soon</span></div>
-        <p>Covers data and uncertainty formats, model syntax, starting values, and interpretation of parameter uncertainties, χ²/NDF, p-values, and residual plots.</p>
-      </div>
-      <button class="button tutorial-button" type="button" disabled aria-label="Start tutorial — coming soon">Start tutorial <span aria-hidden="true">→</span></button>
-    </section>
+    <button class="button secondary tutorial-button" id="tutorial" type="button" disabled aria-label="Tutorial — coming soon">Tutorial <span class="coming-soon" aria-hidden="true">Coming soon</span></button>
     <nav class="support-links" aria-label="Help and information">
       <a href="documentation.html">Documentation</a>
       <button type="button" id="what-root">What is ROOT?</button>
@@ -31,7 +26,6 @@
     </nav>
   </div>
 </section>
-<aside class="prototype-note" role="note"><strong>Prototype notice</strong><p>This is still a prototype, so please sanity-check important results by hand before relying on them: confirm the fitted curve follows the data and the parameters are physically reasonable.</p><p>It runs on free hosting that sleeps when idle, so the first fit after a while can take ~30-60 seconds to wake up.</p></aside>
 </main>
 <footer class="site-footer"><span>ROOT-A-TRON 3000 <span class="divider">/</span> Minh Tran · 2026</span><span>Powered by CERN ROOT</span></footer>
 <dialog id="workspace-dialog" aria-labelledby="workspace-title" aria-describedby="workspace-description"><button class="dialog-close" aria-label="Close workspace chooser" data-close>×</button><h2 id="workspace-title">Choose an interface</h2><p id="workspace-description" class="dialog-description">Choose the arrangement you find more comfortable for entering data and reviewing a fit.</p><div class="workspace-options">
