@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Turn measurements into plots and fitted curves with CERN ROOT. Choose Compact or Standard."><title>ROOT-A-TRON 3000 · Scientific plotting</title><link rel="stylesheet" href="home.css?v=20261013-tutorial-ui"><script src="home.js" defer></script><link rel="stylesheet" href="site-brand.css?v=1">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Turn measurements into plots and fitted curves with CERN ROOT. Choose Compact or Standard."><title>ROOT-A-TRON 3000 · Scientific plotting</title><link rel="stylesheet" href="home.css?v=20261013-compact-actions"><script src="home.js" defer></script><link rel="stylesheet" href="site-brand.css?v=1">
 <link rel="icon" href="favicon.ico?v=1" sizes="any"><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=1"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=1"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=1"><link rel="icon" type="image/png" sizes="512x512" href="icon-512.png?v=1"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
 </head>
 <body>
@@ -13,14 +13,8 @@
   <p class="hero-subheading">Graphical interface for data analysis using ROOT</p>
   <div class="hero-actions">
     <div class="primary-tools" role="group" aria-label="Analysis tools">
-      <button class="tool-launch tool-launch-primary" id="make-plot" type="button" aria-labelledby="plot-title" aria-describedby="plot-description">
-        <span class="tool-title" id="plot-title">Make a Plot <span aria-hidden="true">→</span></span>
-        <span class="tool-description" id="plot-description">Enter measurements, fit a model, and explore your results.</span>
-      </button>
-      <a class="tool-launch" href="uncertainties.html" aria-labelledby="analysis-title" aria-describedby="analysis-description">
-        <span class="tool-title" id="analysis-title">Analyze Data <span aria-hidden="true">→</span></span>
-        <span class="tool-description" id="analysis-description">Calculate quantities and work with measurement uncertainties.</span>
-      </a>
+      <button class="button primary" id="make-plot" type="button">Make a Plot</button>
+      <a class="button primary" href="uncertainties.html">Analyze Data</a>
     </div>
     <section class="tutorial-card" id="tutorial" aria-labelledby="tutorial-title">
       <div class="tutorial-copy">
