@@ -69,15 +69,6 @@ body.classic :is(#btn-load, #btn-save):active:not(:disabled) {
 
 body.classic .toolbar { flex-wrap: wrap; }
 body.classic .toolbar > button { flex-shrink: 0; }
-body.classic .toolbar .workspace-tutorial:disabled {
-  gap: 6px; padding: 0 9px; white-space: nowrap; color: #555;
-  background: #ececec; box-shadow: none; text-shadow: none;
-  border: 1px solid #b8b8b8;
-}
-body.classic .tutorial-status {
-  padding: 1px 4px; border: 1px solid #b8b8b8;
-  color: #555; font-size: 10px; line-height: 1.2;
-}
 @media (max-width: 600px) {
   body.classic .toolbar .spacer { flex-basis: 100%; height: 0; }
 }
