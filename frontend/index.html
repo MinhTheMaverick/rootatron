@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Turn measurements into plots and fitted curves with CERN ROOT. Choose Compact or Standard."><title>ROOT-A-TRON 3000 · Scientific plotting</title><link rel="stylesheet" href="home.css?v=20261013-home-only-tutorial"><script src="home.js" defer></script><link rel="stylesheet" href="site-brand.css?v=1">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Turn measurements into plots and fitted curves with CERN ROOT. Choose Compact or Standard."><title>ROOT-A-TRON 3000 · Scientific plotting</title><link rel="stylesheet" href="home.css?v=20261013-plot-artwork"><script src="home.js" defer></script><link rel="stylesheet" href="site-brand.css?v=1">
 <link rel="icon" href="favicon.ico?v=1" sizes="any"><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=1"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=1"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=1"><link rel="icon" type="image/png" sizes="512x512" href="icon-512.png?v=1"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
 </head>
 <body>
@@ -17,7 +17,11 @@
 <main id="main" class="hero" tabindex="-1">
 <aside class="prototype-note" role="note"><strong>Notice!</strong><p>This is still a prototype, so please sanity-check important results by hand before relying on them: confirm the fitted curve follows the data and the parameters are physically reasonable.</p><p>It runs on free hosting that sleeps when idle, so the first fit after a while can take ~30-60 seconds to wake up.</p></aside>
 <section class="hero-content" aria-labelledby="hero-title">
-  <img class="root-image" src="assets/root-framework.png" width="600" height="350" alt="ROOT - Data Analysis Framework">
+  <div class="plot-gallery" aria-label="Example fitted plots">
+    <img class="plot-interference" src="assets/plots/two-slit-interference.png" width="1046" height="1424" alt="Single-photon two-slit interference fit with pulls">
+    <img src="assets/plots/gaussian-peak.png" width="1968" height="796" alt="Gaussian peak preset fitted in the plotting tool">
+    <img src="assets/plots/exponential-decay.png" width="1968" height="796" alt="Exponential decay preset fitted in the plotting tool">
+  </div>
   <h1 id="hero-title">ROOT-A-TRON 3000</h1>
   <p class="hero-subheading">Graphical interface for data analysis using ROOT</p>
   <div class="hero-actions">
