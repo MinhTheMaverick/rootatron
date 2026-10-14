@@ -84,7 +84,7 @@
   let dialog;
   function refresh() {
     const type = $('analysis-type').value;
-    const mount = type === 'multivariate' ? $('multivariate-model') : document.querySelector('.starting-values-actions');
+    const mount = type === 'multivariate' ? $('mv-starting-actions') : document.querySelector('#single-fit-block .starting-values-actions');
     if (mount && trigger.parentElement !== mount) mount.append(trigger);
     trigger.disabled = !['xy', 'histogram', 'multivariate'].includes(type);
   }
@@ -133,7 +133,7 @@
     });
     $('ai-starting-manual').addEventListener('click', () => {
       dialog.close();
-      if ($('analysis-type').value === 'multivariate') { $('mv-par-guesses').focus(); return; }
+      if ($('analysis-type').value === 'multivariate') { $('mv-parameter-paste').open = true; $('mv-par-guesses').focus(); return; }
       $('starting-values-manual').click();
       const paste = document.querySelector('.parameter-paste');
       if (paste) paste.open = true;

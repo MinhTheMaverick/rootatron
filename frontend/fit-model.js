@@ -130,7 +130,8 @@
     const count=table.querySelectorAll('[data-pguess]').length, provenance=currentDataset()?.startingValues;
     const state=searches.get(datasetKey()), busy=!!state?.busy;
     const base=startingStatus($('initial-guesses').value,count,provenance,signature());
-    const message=state?.busy || state?.failed?state.message:(count?base.text:'Choose a model with adjustable parameters to set starting values.');
+    let message=state?.busy || state?.failed?state.message:(count?base.text:'Choose a model with adjustable parameters to set starting values.');
+    if ($('analysis-type').value === 'histogram') message = message.replace('to see the starting curve', 'before fitting').replace('review the curve or re-estimate', 'review the values or re-estimate').replace('Review the curve, then run Fit.', 'Review the values, then run Fit.');
     if($('starting-values-status').textContent!==message) $('starting-values-status').textContent=message;
     $('starting-values-error').textContent=state?.error || ''; $('starting-values-error').hidden=!state?.error;
     const estimate=$('starting-values-estimate');
@@ -316,6 +317,7 @@
     const host=$('guess-preview'), note=$('guess-preview-note');
     host.replaceChildren();
     const type=$('analysis-type').value;
+    host.closest('.visual-preview-plot').hidden = false;
     const column=type==='histogram' ? ($('hist-source').value==='samples' ? 'hist-samples' : 'hist-edges') : 'col-x';
     const parsed=typeof parseColumn==='function' ? parseColumn($(column)?.value || '') : {values:[],bad:[]};
     const omitted=typeof datasets==='undefined'?[]:(datasets[activeIdx]?.exclusions || []);
@@ -339,7 +341,7 @@
       const curve=(cached?.x || []).map((x,i)=>[x,cached.y?.[i]]).filter(p=>p.every(Number.isFinite));
       const limits=bounds(points.map(p=>p[0]).concat(curve.map(p=>p[0])));
       if(points.length && curve.length && limits[0]<limits[1]) note.textContent=drawStartingCurve(host,points,curve,...limits);
-      else note.textContent='Estimate starting values to preview this model. Live curve adjustment is available for supported XY models.';
+      else { note.textContent=''; host.closest('.visual-preview-plot').hidden = true; }
       return;
     }
     if(parsed.bad.length || y.bad.length || parsed.values.length!==y.values.length || parsed.values.length<2) { note.textContent='Add matching X and Y measurements to preview your model.'; return; }
@@ -369,7 +371,16 @@
     host.innerHTML=`<svg viewBox="0 0 624 244" role="img" aria-label="Starting curve over your included measurements; not a fit result"><defs><clipPath id="guess-preview-clip"><rect x="52" y="22" width="544" height="188"/></clipPath></defs><path d="M52 22 V210 H596" stroke="#becbd7" fill="none"/><g clip-path="url(#guess-preview-clip)"><path d="${path}" stroke="#346295" stroke-width="2" stroke-dasharray="6 4" fill="none"/>${dots}</g><g font-size="12" fill="#657487"><text x="52" y="234">${formatGuess(low)}</text><text x="596" y="234" text-anchor="end">${formatGuess(high)}</text><text x="324" y="234" text-anchor="middle">x</text><text x="46" y="30" text-anchor="end">${formatGuess(ymax)}</text><text x="46" y="210" text-anchor="end">${formatGuess(ymin)}</text></g></svg>`;
     return curve.some(p=>p[1]===null)?'Some parts of this model are undefined at these starting values. Check the curve before fitting.':curve.some(p=>p[1]<ymin||p[1]>ymax)?'Part of the curve is outside the data scale. Adjust the values to bring it toward your measurements.':'';
   }
+  let previousAnalysisType;
   function refresh() {
+    const type = $('analysis-type').value;
+    panel.classList.toggle('is-histogram', type === 'histogram');
+    openButton.hidden = type === 'histogram';
+    $('visual-match-help').hidden = type === 'histogram';
+    if (type !== previousAnalysisType) {
+      if (type === 'histogram') valuesEditor.open = true;
+      previousAnalysisType = type;
+    }
     growFormula();
     syncControls();
     updateStartingStatus();

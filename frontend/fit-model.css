@@ -116,3 +116,11 @@ body.modern :is(details, details.fold, details.diagnostic-config, details.ml-gui
 @media (max-width:600px) {
   body.classic #report { max-width:100%; overflow-x:auto; }
 }
+
+#hist-fit-options { margin: 16px 0 24px; padding: 16px; border: 1px solid #d4dfe9; border-radius: 6px; background: #f7f9fc; }
+#hist-fit-options .field { max-width: 420px; margin-bottom: 8px; }
+#hist-fit-options .hist-fit-reference > summary { font-size: 13px; color: #536477; }
+#hist-fit-options .hist-fit-reference p { margin: 8px 0 0; }
+
+.starting-values-panel.is-histogram .parameter-search-tools { display: contents; }
+.starting-values-panel.is-histogram .parameter-search-tools > .hint { display: none; }

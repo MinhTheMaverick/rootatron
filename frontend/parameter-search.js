@@ -14,7 +14,7 @@
       dataset: d?.id || activeIdx, type: d?.analysis_type,
       columns: ['x', 'y', 'ex', 'ey'].map(c => el('col-' + c).value),
       histogram: Array.from(document.querySelectorAll('[id^="hist-"]')).filter(node => 'value' in node).map(node => [node.id, node.value]),
-      multivariate: Array.from(document.querySelectorAll('#multivariate-data input, #multivariate-data textarea, #multivariate-model input')).map(node => [node.id, node.dataset.mv, node.dataset.i, node.value]),
+      multivariate: Array.from(document.querySelectorAll('#multivariate-data input, #multivariate-data textarea, #multivariate-model input, #multivariate-model textarea')).map(node => [node.id, node.dataset.mv, node.dataset.i, node.value]),
       settings: ['formula', 'param-names', 'initial-guesses', 'fit-xmin', 'fit-xmax'].map(id => el(id).value),
       equation: window.RootEquationEditor?.snapshot(),
       draft: el('fit-equation')?.value,
@@ -105,10 +105,10 @@
     if (applying || !host) return;
     const kind = datasets[activeIdx]?.analysis_type;
     const supported = ['xy', 'histogram', 'multivariate'].includes(kind);
-    const mount = kind === 'multivariate' ? el('multivariate-model') : el('parameter-search-single-mount');
+    const mount = kind === 'multivariate' ? el('mv-starting-actions') : kind === 'histogram' ? document.querySelector('#single-fit-block .starting-values-actions') : el('parameter-search-single-mount');
     if (mount && host.parentElement !== mount) mount.append(host);
     el('parameter-search-open').disabled = !supported || fitBusy || !!(session?.preparing || session?.running || session?.cancelling);
-    el('parameter-search-open').textContent=kind==='multivariate'?'Computer estimate…':'Search options…';
+    el('parameter-search-open').textContent=kind==='multivariate'?'Estimate starting values…':'Search options…';
     el('parameter-search-availability').textContent = supported
       ? 'Let the computer suggest values, then review and apply them.'
       : 'Choose an analysis type to find starting values for your model.';

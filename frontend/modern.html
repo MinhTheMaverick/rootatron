@@ -9,10 +9,10 @@
 <link rel="stylesheet" href="modern.css?v=20261013-fit-notice">
 <link rel="stylesheet" href="site-brand.css?v=1">
 <link rel="stylesheet" href="analysis-features.css?v=20260919-export">
-<link rel="stylesheet" href="multivariate.css?v=1">
+<link rel="stylesheet" href="multivariate.css?v=20261013-fit-layout">
 <link rel="stylesheet" href="parameter-search.css?v=20261008-quick-guess">
 <link rel="stylesheet" href="analysis-setup.css?v=20261008-beginners">
-<link rel="stylesheet" href="fit-model.css?v=20261013-manual-starts">
+<link rel="stylesheet" href="fit-model.css?v=20261013-fit-layout">
 <script defer src="analysis-export.js?v=20260919-pdf"></script>
 <link rel="icon" href="favicon.ico?v=1" sizes="any"><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=1"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=1"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png?v=1"><link rel="icon" type="image/png" sizes="512x512" href="icon-512.png?v=1"><link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
 <link rel="stylesheet" href="fit-progress.css?v=20261013">
@@ -176,7 +176,7 @@
             <option value="poisson">Poisson likelihood</option>
             <option value="chi2">χ² with √count uncertainties</option>
           </select></div>
-        <p class="hint">The model is a count density; its bin integral gives the expected count. Poisson likelihood includes empty bins; χ² uses √count uncertainties and excludes empty bins. Fit-range limits select bins by their centers.</p>
+        <details class="hist-fit-reference"><summary>How histogram fitting works</summary><p class="hint">The model gives counts per unit X. Its integral over each bin predicts the count. Poisson likelihood includes empty bins; χ² uses √count uncertainties and excludes empty bins. Fit-range limits select bins by their centers.</p></details>
       </div>
 
       <div class="fit-flow">
@@ -489,13 +489,13 @@
 <script src="workspace-store.js?v=1" defer></script>
 <script src="plot-style.js?v=1" defer></script>
 <script src="insert-data.js?v=20260920-types" defer></script>
-<script src="multivariate.js?v=20261008-all-analysis" defer></script>
+<script src="multivariate.js?v=20261013-fit-layout" defer></script>
 <script src="fit-progress.js?v=20261013" defer></script>
 <script src="app.js?v=20261013-fit-navigation" defer></script>
 <script src="model-library.js?v=20261008-inline-starts-4" defer></script>
-<script src="parameter-search.js?v=20261008-inline-starts-4" defer></script>
+<script src="parameter-search.js?v=20261013-fit-layout" defer></script>
 <script defer src="analysis-features.js?v=20261008-fit-flow"></script>
-<script src="fit-model.js?v=20261013-manual-starts" defer></script>
-<script src="ai-starting-values.js?v=20261013" defer></script>
+<script src="fit-model.js?v=20261013-fit-layout" defer></script>
+<script src="ai-starting-values.js?v=20261013-fit-layout" defer></script>
 </body>
 </html>

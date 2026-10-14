@@ -81,18 +81,35 @@
       '<div class="mv-section-label">Inputs</div><div id="mv-input-cols" class="mv-cols"></div>' +
       '<div class="mv-section-label">Outputs</div><div id="mv-output-cols" class="mv-cols"></div>' +
       '<p class="hint">One value per line (commas, tabs and spaces also work). Every column needs the same number of rows. Uncertainties are optional: one value for the whole column, or one per row.</p>';
-    model.innerHTML =
-      '<div id="mv-models" class="mv-models"></div>' +
-      '<div class="mv-params">' +
-      '<label>Parameter names<input id="mv-par-names" class="mono" placeholder="a, b, c" spellcheck="false"></label>' +
-      '<label>Initial guesses<input id="mv-par-guesses" class="mono" placeholder="1, 1, 1" spellcheck="false"></label>' +
-      '</div>' +
-      '<p class="hint">Write each model with inputs <code>x0</code>, <code>x1</code>, … and parameters <code>[0]</code>, <code>[1]</code>, …. A parameter that appears in more than one output is shared across them. Names and guesses are listed in parameter-index order.</p>';
+    model.innerHTML = `
+      <section class="mv-model-section">
+        <h3 class="fit-stage">1. Model equations</h3>
+        <div id="mv-input-reference" class="mv-input-reference"></div>
+        <div id="mv-models" class="mv-models"></div>
+        <details class="mv-syntax"><summary>Equation syntax</summary>
+          <p class="hint">Use inputs <code>x0</code>, <code>x1</code>, … and parameters <code>[0]</code>, <code>[1]</code>, …. Parameters with the same index are shared across output equations.</p>
+        </details>
+      </section>
+      <section class="mv-starting-section">
+        <h3 class="fit-stage">2. Starting values</h3>
+        <div class="parameter-table-scroll"><table class="param-table mv-param-table">
+          <thead><tr><th>Index</th><th>Report name</th><th>Initial guess</th></tr></thead>
+          <tbody id="mv-parameter-rows"></tbody>
+        </table></div>
+        <p id="mv-parameters-empty" class="hint" hidden>Add parameters such as [0] and [1] to your equation.</p>
+        <details class="parameter-paste" id="mv-parameter-paste"><summary>Paste comma-separated parameters</summary>
+          <div class="mv-params">
+            <label>Parameter names<input type="text" id="mv-par-names" class="mono" placeholder="a, b, c" spellcheck="false"></label>
+            <label>Initial guesses<input type="text" id="mv-par-guesses" class="mono" placeholder="1, 1, 1" spellcheck="false"></label>
+          </div><p class="hint">Use parameter order: [0], [1], [2]…</p>
+        </details>
+        <div id="mv-starting-actions" class="starting-values-actions"></div>
+      </section>`;
     data.dataset.built = 'true';
 
     $('mv-n').addEventListener('change', () => onDims());
     $('mv-m').addEventListener('change', () => onDims());
-    for (const id of ['mv-par-names', 'mv-par-guesses']) $(id).addEventListener('input', save);
+    for (const id of ['mv-par-names', 'mv-par-guesses']) $(id).addEventListener('input', () => { save(); renderParameterRows(); });
     return true;
   }
 
@@ -113,7 +130,7 @@
     $('mv-output-cols').innerHTML = mv.outNames.map((nm, i) => colBlock('out', i, nm, mv.outVals[i], mv.outErr[i])).join('');
     $('mv-models').innerHTML = mv.outNames.map((nm, i) =>
       '<label class="mv-model-row"><span class="mv-model-label" data-model-label="' + i + '">' + esc(nm) + ' =</span>' +
-      '<input class="mono grow" data-mv="model" data-i="' + i + '" value="' + esc(mv.models[i] || '') + '" spellcheck="false" placeholder="[0]*x0 + [1]"></label>').join('');
+      '<textarea class="mono mv-equation" data-mv="model" data-i="' + i + '" rows="2" spellcheck="false" placeholder="[0]*x0 + [1]">' + esc(mv.models[i] || '') + '</textarea></label>').join('');
     // fill textareas + wire listeners
     for (const el of $('multivariate-data').querySelectorAll('[data-mv]')) {
       const k = el.dataset.mv, i = +el.dataset.i;
@@ -127,7 +144,44 @@
     for (const el of $('mv-models').querySelectorAll('[data-mv="model"]')) el.oninput = onCell;
     $('mv-par-names').value = mv.parNames || '';
     $('mv-par-guesses').value = mv.parGuesses || '';
+    renderInputReference(mv);
+    renderParameterRows();
     updateCounts();
+  }
+
+  function renderInputReference(mv) {
+    $('mv-input-reference').innerHTML = '<span>Inputs:</span>' + mv.inNames.map((name, i) =>
+      '<span><code>x' + i + '</code>' + (name && name !== 'x' + i ? ' = ' + esc(name) : '') + '</span>').join('');
+  }
+
+  function renderParameterRows() {
+    if (!current) return;
+    const count = maxParamIndex(current.mv.models) + 1;
+    const names = splitList($('mv-par-names').value), guesses = splitList($('mv-par-guesses').value);
+    const body = $('mv-parameter-rows');
+    if (body.children.length !== count) {
+      body.innerHTML = Array.from({length:count}, (_, i) => `<tr><td class="idx">[${i}]</td>
+        <td><input type="text" data-mv-name="${i}" aria-label="Parameter ${i} name" placeholder="p${i}" spellcheck="false"></td>
+        <td><input type="text" data-mv-guess="${i}" aria-label="Parameter ${i} initial guess" placeholder="Default" inputmode="decimal" class="mono" spellcheck="false"></td></tr>`).join('');
+      body.querySelectorAll('input').forEach(input => input.addEventListener('input', () => {
+        const isName = input.hasAttribute('data-mv-name');
+        const field = $(isName ? 'mv-par-names' : 'mv-par-guesses');
+        const values = splitList(field.value);
+        const index = Number(isName ? input.dataset.mvName : input.dataset.mvGuess);
+        while (values.length <= index) values.push('');
+        values[index] = input.value;
+        field.value = values.join(', ');
+        field.dispatchEvent(new Event('input', {bubbles:true}));
+      }));
+    }
+    body.querySelectorAll('[data-mv-name]').forEach(input => {
+      if (document.activeElement !== input) input.value = names[Number(input.dataset.mvName)] || '';
+    });
+    body.querySelectorAll('[data-mv-guess]').forEach(input => {
+      if (document.activeElement !== input) input.value = guesses[Number(input.dataset.mvGuess)] || '';
+    });
+    $('mv-parameters-empty').hidden = count > 0;
+    body.closest('table').hidden = !count;
   }
 
   function updateCounts() {
@@ -176,6 +230,8 @@
       const lab = $('mv-models').querySelector('[data-model-label="' + i + '"]');
       if (lab) lab.textContent = ev.target.value + ' =';
     }
+    if (ev?.target.dataset.mv === 'model') renderParameterRows();
+    if (ev?.target.dataset.mv === 'inName') renderInputReference(current.mv);
     updateCounts();
     cb.autosave && cb.autosave();
   }
