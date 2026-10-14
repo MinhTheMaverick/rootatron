@@ -27,20 +27,13 @@
   }
 
   function showStep(step, focus = false) {
-    if (step === 'function') {
-      const type = $('analysis-type').value;
-      const hasNumbers = id => /[0-9]/.test($(id)?.value || '');
-      const hasData = type === 'xy' ? hasNumbers('col-x') && hasNumbers('col-y')
-        : type === 'histogram' ? hasNumbers($('hist-source').value === 'counts' ? 'hist-counts' : 'hist-samples')
-        : type === 'multivariate' ? /[0-9]/.test((((typeof datasets!=='undefined'&&datasets[activeIdx]&&datasets[activeIdx].mv&&datasets[activeIdx].mv.inVals)||[]).join('') + ((typeof datasets!=='undefined'&&datasets[activeIdx]&&datasets[activeIdx].mv&&datasets[activeIdx].mv.outVals)||[]).join('')))
-        : false;
-      if (!hasData) {
-        step = 'data';
-        if (typeof askDialog === 'function') askDialog({title:'Enter data first',
-          message:'Add measurement data before selecting a fit model. For XY data, enter both X and Y values; for a histogram, enter measurements or bin counts.',
-          accept:'Enter data', cancel:null});
-      }
-    }
+    const type = $('analysis-type').value;
+    const hasNumbers = id => /[0-9]/.test($(id)?.value || '');
+    const hasData = type === 'xy' ? hasNumbers('col-x') && hasNumbers('col-y')
+      : type === 'histogram' ? hasNumbers($('hist-source').value === 'counts' ? 'hist-counts' : 'hist-samples')
+      : type === 'multivariate' ? /[0-9]/.test((((typeof datasets!=='undefined'&&datasets[activeIdx]&&datasets[activeIdx].mv&&datasets[activeIdx].mv.inVals)||[]).join('') + ((typeof datasets!=='undefined'&&datasets[activeIdx]&&datasets[activeIdx].mv&&datasets[activeIdx].mv.outVals)||[]).join('')))
+      : false;
+    $('fit-data-notice').hidden = hasData;
     activeStep = step;
     $('step-data').hidden = step !== 'data';
     $('step-function').hidden = step !== 'function';
