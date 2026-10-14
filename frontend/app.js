@@ -544,7 +544,7 @@ function syncAnalysisControls() {
   const type = $('analysis-type').value;
   const histogram = type === 'histogram';
   $('btn-histogram').disabled = !histogram || fitBusy;
-  for (const id of ['dataset-select', 'fit-dataset-select', 'btn-fit', 'modern-next']) {
+  for (const id of ['dataset-select', 'fit-dataset-select', 'btn-fit']) {
     const el = $(id); if (el) el.disabled = !type || (id === 'btn-fit' && fitBusy);
   }
   for (const el of document.querySelectorAll('[data-action="dataset-duplicate"], [data-action="dataset-rename"]')) el.disabled = !type;
@@ -601,18 +601,11 @@ function syncAnalysisSetup() {
       ? compactDescriptions[type] || 'Choose a type to create a plot.'
       : descriptions[type] || 'XY: compare two quantities. Histogram: show the distribution of one quantity. Several inputs and outputs: model how multiple quantities affect a result.';
   }
-  if ($('setup-hint')) $('setup-hint').textContent = hasData
-    ? type === 'histogram'
-      ? 'Your measurements are added. Plot the histogram below, or continue to choose a fit model.'
-      : 'Your measurements are added. Next, choose a fit model. You can edit the data below or switch plots at any time.'
-    : hasPlot
-    ? 'Your plot is ready for data. Add your measurements below, then choose a fit model.'
-    : 'Start here: choose the kind of data you measured. We will create your first plot for you.';
   if ($('btn-table')) {
     $('btn-table').classList.toggle('primary', !hasData);
     $('btn-table').textContent = hasData ? 'Edit data…' : 'Add data…';
   }
-  if ($('modern-next')) $('modern-next').disabled = !hasData;
+  if ($('modern-next')) $('modern-next').disabled = false;
   if ($('plot-choice-hint')) $('plot-choice-hint').textContent = hasPlot
     ? 'Data and fit settings belong to the selected plot. Use New plot to add another.'
     : 'Choose an analysis type above to create a plot. Your data and fit settings belong to the selected plot.';

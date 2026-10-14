@@ -687,3 +687,11 @@ body.modern .analyze-results-button:hover{background:var(--blue-dark);border-col
 .insert-histogram .hint-inline { font-weight: 400; color: var(--muted); font-size: 12px; }
 .insert-histogram textarea { min-height: 0; }
 @media (max-width: 640px) { .insert-histogram .ins-hist-row { grid-template-columns: 1fr; } }
+
+/* Missing measurements belong to the fit page, without blocking navigation. */
+.fit-data-notice {
+  margin: 16px 0 22px; padding: 14px 16px;
+  border: 1px solid #e7c77c; border-left: 4px solid #b77913;
+  border-radius: var(--radius); background: #fff7e3; color: #704b13;
+  font-size: 15px; line-height: 1.5;
+}

@@ -33,7 +33,7 @@
       : type === 'histogram' ? hasNumbers($('hist-source').value === 'counts' ? 'hist-counts' : 'hist-samples')
       : type === 'multivariate' ? /[0-9]/.test((((typeof datasets!=='undefined'&&datasets[activeIdx]&&datasets[activeIdx].mv&&datasets[activeIdx].mv.inVals)||[]).join('') + ((typeof datasets!=='undefined'&&datasets[activeIdx]&&datasets[activeIdx].mv&&datasets[activeIdx].mv.outVals)||[]).join('')))
       : false;
-    $('fit-data-notice').hidden = hasData;
+    $('fit-data-notice').hidden = step !== 'function' || hasData;
     activeStep = step;
     $('step-data').hidden = step !== 'data';
     $('step-function').hidden = step !== 'function';

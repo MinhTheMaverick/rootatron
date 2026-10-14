@@ -6,7 +6,7 @@
 <meta name="description" content="Fit a function to your measurements with CERN ROOT and read off the parameters, uncertainties and goodness of fit.">
 <title>Standard workspace · ROOT-A-TRON 3000</title>
 <link rel="stylesheet" href="style.css?v=20260919-plot-options">
-<link rel="stylesheet" href="modern.css?v=20261013-home-only-tutorial">
+<link rel="stylesheet" href="modern.css?v=20261013-fit-notice">
 <link rel="stylesheet" href="site-brand.css?v=1">
 <link rel="stylesheet" href="analysis-features.css?v=20260919-export">
 <link rel="stylesheet" href="multivariate.css?v=1">
@@ -69,7 +69,6 @@
 
 
       <div class="analysis-setup">
-        <p id="setup-hint" class="setup-hint" role="status">Start here: choose the kind of data you measured. We will create your first plot for you.</p>
         <div class="field analysis-choice">
           <label for="analysis-type">1. Choose an analysis type</label>
           <select id="analysis-type" aria-describedby="analysis-description">
@@ -165,7 +164,7 @@
     <section class="card" id="step-function" hidden aria-labelledby="h-function">
       <header><h2 id="h-function">Fit model</h2>
 </header>
-      <p id="fit-data-notice" class="hint" role="status" hidden><strong>No data yet.</strong> Add measurements in Set up analysis before running a fit.</p>
+      <p id="fit-data-notice" class="fit-data-notice" role="status" hidden><strong>No data yet.</strong> Add measurements in Set up analysis before running a fit.</p>
       <div id="multivariate-model" hidden></div>
       <div id="single-fit-block">
 
@@ -485,14 +484,14 @@
 <script src="vendor/mathlive/mathlive.min.js" defer></script>
 <script src="equation-parser.js?v=20261008-sinc" defer></script>
 <script src="equation-editor.js?v=20261008-inline-starts-4" defer></script>
-<script src="modern.js?v=20261013-fit-notice" defer></script>
+<script src="modern.js?v=20261013-fit-notice-2" defer></script>
 <script defer src="units.js?v=1"></script><script src="analysis-core.js?v=20260919-units" defer></script>
 <script src="workspace-store.js?v=1" defer></script>
 <script src="plot-style.js?v=1" defer></script>
 <script src="insert-data.js?v=20260920-types" defer></script>
 <script src="multivariate.js?v=20261008-all-analysis" defer></script>
 <script src="fit-progress.js?v=20261013" defer></script>
-<script src="app.js?v=20261013-fit-progress" defer></script>
+<script src="app.js?v=20261013-fit-navigation" defer></script>
 <script src="model-library.js?v=20261008-inline-starts-4" defer></script>
 <script src="parameter-search.js?v=20261008-inline-starts-4" defer></script>
 <script defer src="analysis-features.js?v=20261008-fit-flow"></script>
