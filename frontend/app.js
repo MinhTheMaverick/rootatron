@@ -171,6 +171,7 @@ async function showFirstVisitSaveNotice() {
   const navigation = window.performance?.getEntriesByType?.('navigation')?.[0];
   const reloaded = navigation ? navigation.type === 'reload' : window.performance?.navigation?.type === 1;
   if (!reloaded && storageGet(SAVE_NOTICE_KEY) === '1') return;
+  if (new URLSearchParams(location.search).has('tutorial')) return;   // the tutorial teaches Save itself
   await askDialog({
     title: 'Save your analysis',
     message: 'Your data is not saved to a file automatically. Use Save to keep your data, fit settings, and results. Browser autosave is not a permanent backup.',
