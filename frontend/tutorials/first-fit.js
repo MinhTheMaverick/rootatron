@@ -146,6 +146,15 @@
     if (open && !open.disabled && open.getAttribute('aria-expanded') !== 'true') open.click();
   }
 
+  // Save counts only when the app reports the file was written, not when the button is pressed:
+  // the button opens a dialog first, and the user can cancel it.
+  let savePressed = false, savedSeen = false;
+  if (typeof document !== 'undefined') {
+    document.addEventListener('click', e => { if (e.target.closest('[data-action="save"], #btn-save')) savePressed = true; }, true);
+    document.addEventListener('rootfit:message', () => { if (savePressed && /^(Saved “|Download requested)/.test(($('message')?.textContent || '').trim())) savedSeen = true; });
+  }
+  const saved = () => savedSeen && !document.querySelector('dialog[open]');
+
   window.TutorialLessons = window.TutorialLessons || {};
   window.TutorialLessons['first-fit'] = {
     title: 'Your first fit',
@@ -161,7 +170,6 @@
       if (!untouched) { datasets.push(newDataset('Double slit (tutorial)', '')); activeIdx = datasets.length - 1; }
       else d.name = 'Double slit (tutorial)';
       showActiveInColumns();
-      document.addEventListener('click', e => { if (e.target.closest('[data-action="save"], #btn-save')) ctx.flags.saved = true; }, true);
     },
     steps: [
       // ---------------- data
@@ -379,7 +387,8 @@
         id: 'save', phase: 'Result', target: () => [...document.querySelectorAll('.fit-bar-save, #btn-save')].find(b => b.getClientRects().length),
         say: 'Press <strong>Save</strong> to keep the analysis as a file.',
         note: 'The file holds the data, the model, the starting values and the result. Open it again with <strong>Open…</strong>.',
-        done: ctx => !!ctx.flags.saved,
+        enter: () => { savePressed = false; savedSeen = false; },
+        done: saved,
         show: {},
       },
       {

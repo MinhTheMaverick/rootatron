@@ -78,10 +78,13 @@
   const prevOf = step => { const list = visibleSteps(); return list[list.indexOf(step) - 1]?.id; };
 
   // ---- snapshots: Back puts the app back as it was when that step began ----
-  const snaps = {};
+  // Kept for this browser tab, so Back still undoes after a reload.
+  const SNAP_KEY = KEY + '.snapshots';
+  const snaps = (() => { try { return JSON.parse(sessionStorage.getItem(SNAP_KEY) || '{}') || {}; } catch { return {}; } })();
+  const keepSnaps = () => { try { sessionStorage.setItem(SNAP_KEY, JSON.stringify(snaps)); } catch { /* too large or blocked: Back still moves, without undoing */ } };
   const page = () => !$('results')?.hidden ? 'results' : !$('step-function')?.hidden ? 'function' : 'data';
   function snapshot(stepId) {
-    try { snaps[stepId] = {doc: JSON.parse(JSON.stringify(buildDocument())), page: page(), adjust: $('visual-match-open')?.getAttribute('aria-expanded') === 'true'}; } catch (e) { console.warn('tutorial snapshot', e); }
+    try { snaps[stepId] = {doc: JSON.parse(JSON.stringify(buildDocument())), page: page(), adjust: $('visual-match-open')?.getAttribute('aria-expanded') === 'true'}; keepSnaps(); } catch (e) { console.warn('tutorial snapshot', e); }
   }
   function restore(stepId) {
     const s = snaps[stepId]; if (!s) return false;
@@ -289,7 +292,7 @@
     const flag = e.target.closest('[data-flag]');
     if (flag) { ctx.flags[flag.dataset.flag] = true; setTimeout(tick, 0); }
     if (e.target.closest('[data-redo]')) { restore(state.step); doneAtEntry = false; render(); return; }
-    if (e.target.closest('[data-restart]')) { restore(steps[0].id); state.done = []; state.branch = null; ctx.flags = {}; for (const k in snaps) delete snaps[k]; go(steps[0].id); return; }
+    if (e.target.closest('[data-restart]')) { restore(steps[0].id); state.done = []; state.branch = null; ctx.flags = {}; for (const k in snaps) if (k !== steps[0].id) delete snaps[k]; keepSnaps(); go(steps[0].id); return; }
     const jump = e.target.closest('[data-goto]');
     if (jump) go(jump.dataset.goto, {back: visibleSteps().indexOf(byId[jump.dataset.goto]) < visibleSteps().indexOf(byId[state.step])});
   });
